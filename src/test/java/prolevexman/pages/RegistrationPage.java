@@ -43,9 +43,12 @@ public class RegistrationPage extends BasePage {
        return new LoginPage(getDriver());
     }
 
-    public RegistrationPage isErrorMessage() {
-       waitElementLoad(INCORRECT_PASSWORD_MESSAGE);
-       return this;
+    public boolean isVisibleErrorMessage() {
+       return isVisible(INCORRECT_PASSWORD_MESSAGE);
+    }
+
+    public String getElementText() {
+       return getText(INCORRECT_PASSWORD_MESSAGE);
     }
 
 

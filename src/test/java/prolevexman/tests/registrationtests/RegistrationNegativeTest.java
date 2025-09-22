@@ -18,12 +18,13 @@ import static prolevexman.utils.UserGenerator.randomUserWithPassLength;
 
 @ExtendWith(WebDriverExtension.class)
 @Browser
-@DisplayName("Успешная регистрация")
-public class RegistrationPageTest {
+@DisplayName("Невозможно зарегистрироваться с паролем < 6 символов")
+public class RegistrationNegativeTest {
 
-    private static final int PASSWORD_LENGTH = 6;
+    private static final int PASSWORD_LENGTH = 5;
     private RegistrationPage registrationPage;
     private User user;
+    private String errorMessage = "Некорректный пароль";
 
     @BeforeAll
     public static void setUp() {
@@ -38,15 +39,17 @@ public class RegistrationPageTest {
     }
 
     @Test
-    void successfulRegistration(WebDriver driver) {
+    void registrationWithShortPasswordShouldFail() {
 
-        LoginPage loginPage = registrationPage
+        registrationPage
                 .setNameField(user.getName())
                 .setEmailField(user.getEmail())
                 .setPasswordField(user.getPassword())
                 .clickRegistrationButton();
 
-        assertTrue(loginPage.isVisibleLoginPage(), () -> "После регистрации ожидается перенаправление на стрницу входа");
+        String actualMessage = registrationPage.getElementText();
+
+        assertEquals(errorMessage, actualMessage, () -> "Ожидалось сообщение о недостаточной длине пароля");
     }
 
     @AfterEach
@@ -58,8 +61,14 @@ public class RegistrationPageTest {
             Response loginResponse = userClient.loginUser(loginUser);
             String token = loginResponse.jsonPath().getString("accessToken");
 
-            Response response = userClient.deleteUser(token);
-            assertEquals(202, response.statusCode(), () -> "Юзер не удалился: " + user.getEmail());
+            if (token != null && !token.isEmpty()) {
+                Response response = userClient.deleteUser(token);
+                assertEquals(202, response.statusCode(), () -> "Юзер не удалился: " + user.getEmail());
+
+            }
         }
     }
 }
+
+
+
