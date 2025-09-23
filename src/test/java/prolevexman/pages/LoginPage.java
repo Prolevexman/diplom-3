@@ -18,7 +18,6 @@ public class LoginPage extends BasePage {
 
     public boolean isVisibleLoginPage() {
         return isVisible(LOGIN_FORM);
-
     }
 
 

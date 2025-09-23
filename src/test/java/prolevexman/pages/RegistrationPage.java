@@ -2,6 +2,7 @@ package prolevexman.pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
+import prolevexman.model.User;
 
 import static prolevexman.locators.RegistrationPageLocators.*;
 
@@ -49,6 +50,20 @@ public class RegistrationPage extends BasePage {
 
     public String getElementText() {
        return getText(INCORRECT_PASSWORD_MESSAGE);
+    }
+
+    @Step("Переход по ссылке на страницу логина")
+    public LoginPage clickLoginLink() {
+        clickElementWithCheck(LOGIN_LINK_REG_PAGE);
+        return new LoginPage(getDriver());
+    }
+
+    public RegistrationPage register(User user) {
+        setNameField(user.getName());
+        setEmailField(user.getEmail());
+        setPasswordField(user.getPassword());
+        clickRegistrationButton();
+        return this;
     }
 
 

@@ -18,7 +18,7 @@ import static prolevexman.utils.UserGenerator.randomUserWithPassLength;
 
 @ExtendWith(WebDriverExtension.class)
 @Browser
-@DisplayName("Успешная регистрация")
+@DisplayName("Позитивные тесты регистрации")
 public class RegistrationPositiveTest {
 
     private static final int PASSWORD_LENGTH = 6;
@@ -37,6 +37,7 @@ public class RegistrationPositiveTest {
         user = randomUserWithPassLength(PASSWORD_LENGTH);
     }
 
+    @DisplayName("Успешная регистрация")
     @Test
     void successfulRegistration() {
 
