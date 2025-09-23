@@ -15,21 +15,21 @@ public class PagesHeader extends BasePage {
     }
 
     @Step("Нажатие на кнопку профиля")
-    public LoginPage clickProfileButton() {
+    public PagesHeader clickProfileButton() {
         clickElementWithCheck(PROFILE);
-        return new LoginPage(getDriver());
+        return this;
     }
 
     @Step("Нажатие на кнопку конструктора")
-    public LoginPage clickConstructorButton() {
+    public PagesHeader clickConstructorButton() {
         clickElementWithCheck(CONSTRUCTOR);
-        return new LoginPage(getDriver());
+        return this;
     }
 
     @Step("Нажатие на логотип")
-    public LoginPage clickLogoLink() {
+    public PagesHeader clickLogoLink() {
         clickElementWithCheck(LOGO);
-        return new LoginPage(getDriver());
+        return this;
     }
 
 

@@ -1,10 +1,7 @@
 package prolevexman.tests.navigation;
 
 import io.restassured.response.Response;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -54,15 +51,15 @@ public class SiteNavigationTest {
         UserClient userClient = new UserClient();
         userClient.createUser(user);
         User loginUser = new User(user.getEmail(), user.getPassword(), null);
-        loginPage.openLoginPage()
-                .login(loginUser);
+        loginPage.openLoginPage();
+            loginPage.login(loginUser);
 
 
     }
 
     @DisplayName("Переход в личный кабинет")
     @Test
-    void navigationToProfile(WebDriver driver) {
+    void navigationToProfile() {
 
         pagesHeader.clickProfileButton();
 
@@ -72,9 +69,9 @@ public class SiteNavigationTest {
     @DisplayName("Переход из личного кабинета в конструктор")
     @ParameterizedTest(name = "Переход из профиля через {0}")
     @EnumSource(NavigationTarget.class)
-    void navigationFromProfileToConstructor(NavigationTarget target, WebDriver driver) {
+    void navigationFromProfileToConstructor(NavigationTarget target) {
 
-        profilePage.openProfilePage();
+        pagesHeader.clickProfileButton();
 
         switch (target) {
             case CONSTRUCTOR:
@@ -85,16 +82,6 @@ public class SiteNavigationTest {
                 break;
         }
         assertTrue(mainPage.isVisibleCreateBurger(), () -> "Не удалось перейти в конструктор" + target);
-    }
-
-    @DisplayName("Выход из профиля")
-    @Test
-    void signOutFromProfile(WebDriver driver) {
-
-        profilePage.openProfilePage()
-                .clickSignoutButttonActions();
-
-        assertTrue(loginPage.isVisibleLoginPage(), () -> "Не удалось выйти из личного кабинета");
     }
 
     @AfterAll

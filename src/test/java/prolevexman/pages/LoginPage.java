@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import prolevexman.model.User;
 
 import static prolevexman.locators.LoginPageLocators.*;
-import static prolevexman.locators.RegistrationPageLocators.*;
 
 public class LoginPage extends BasePage {
 
@@ -32,7 +31,7 @@ public class LoginPage extends BasePage {
     @Step("Нажатие на кнопку логин")
     public LoginPage clickLoginButton() {
         clickElementWithCheck(LOGIN_BUTTON);
-        return new LoginPage(getDriver());
+        return this;
     }
 
     @Step("Ввод email пользователя: {email}")
