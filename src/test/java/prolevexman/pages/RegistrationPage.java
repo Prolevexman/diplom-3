@@ -48,6 +48,7 @@ public class RegistrationPage extends BasePage {
        return isVisible(INCORRECT_PASSWORD_MESSAGE);
     }
 
+    @Step("Проверка текста сообщения")
     public String getElementText() {
        return getText(INCORRECT_PASSWORD_MESSAGE);
     }

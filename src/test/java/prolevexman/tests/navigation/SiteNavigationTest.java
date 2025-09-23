@@ -72,6 +72,7 @@ public class SiteNavigationTest {
     void navigationFromProfileToConstructor(NavigationTarget target) {
 
         pagesHeader.clickProfileButton();
+        profilePage.waitPageLoad();
 
         switch (target) {
             case CONSTRUCTOR:
@@ -79,9 +80,15 @@ public class SiteNavigationTest {
                 break;
             case LOGO:
                 pagesHeader.clickLogoLink();
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                pagesHeader.clickLogoLink();
                 break;
         }
-        assertTrue(mainPage.isVisibleCreateBurger(), () -> "Не удалось перейти в конструктор" + target);
+        assertTrue(mainPage.isVisibleCreateBurger(), () -> "Не удалось перейти в конструктор " + target);
     }
 
     @AfterAll

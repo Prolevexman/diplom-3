@@ -50,7 +50,7 @@ public class SignOutTest {
     void signOutFromProfile() {
 
         pagesHeader.clickProfileButton();
-        profilePage.clickSignoutButttonActions();
+        profilePage.clickSignoutButton();
 
         assertTrue(loginPage.isVisibleLoginPage(), () -> "Не удалось выйти из личного кабинета");
     }

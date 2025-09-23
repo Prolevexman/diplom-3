@@ -2,11 +2,6 @@ package prolevexman.pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.time.Duration;
 
 import static prolevexman.locators.ProfilePageLocators.NAME_LABEL;
 import static prolevexman.locators.ProfilePageLocators.SIGNOUT_BUTTON;
@@ -31,16 +26,14 @@ public class ProfilePage extends BasePage {
     }
 
     @Step("Выход из профиля")
-    public ProfilePage clickSignoutButtton() {
+    public ProfilePage clickSignoutButton() {
         clickElementWithCheck(SIGNOUT_BUTTON);
         return this;
     }
-//кнопка перекрыта
-    @Step("Выход из профиля")
-    public ProfilePage clickSignoutButttonActions() {
-        WebElement element = getWait().until(ExpectedConditions.visibilityOfElementLocated(SIGNOUT_BUTTON));
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(element).pause(Duration.ofMillis(200)).click().perform();
+
+    @Step("Ожидание загрузки страницы")
+    public ProfilePage waitPageLoad() {
+        waitElementLoad(NAME_LABEL);
         return this;
     }
 }
