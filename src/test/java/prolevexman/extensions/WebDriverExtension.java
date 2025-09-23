@@ -67,14 +67,15 @@ public class WebDriverExtension implements BeforeAllCallback, AfterAllCallback,
     }
 
     private WebDriver createDriver(String browser) {
+
         switch (browser.toLowerCase()) {
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 return new FirefoxDriver();
             case "yandex":
-                WebDriverManager.chromedriver().setup();
+                WebDriverManager.chromedriver().driverVersion(System.getProperty("chromedriver_version")).setup();
                 ChromeOptions options = new ChromeOptions();
-                options.setBinary("");  //Добавить яндекс после скачивания
+                options.setBinary(System.getProperty("yandex_browser_path"));
                 return new ChromeDriver(options);
             default:
                 WebDriverManager.chromedriver().setup();
