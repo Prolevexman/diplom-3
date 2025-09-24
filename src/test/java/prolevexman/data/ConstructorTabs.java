@@ -2,9 +2,9 @@ package prolevexman.data;
 
 public enum ConstructorTabs {
 
-    BUNS("Булки"),
     SAUCE("Соусы"),
-    FILLING("Начинки");
+    FILLING("Начинки"),
+    BUNS("Булки");
 
     private final String name;
 

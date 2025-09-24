@@ -51,7 +51,11 @@ public class ConstructorTabTest {
                     .until(d -> {
                         WebElement header = d.findElement(headerLocator);
                         WebElement constructorContainer = d.findElement(CONSTRUCTOR_CONTAINER);
-                        return header.getLocation().getY() <= constructorContainer.getLocation().getY() + 41;
+                        int headerY = header.getLocation().getY();
+                        System.out.println(headerY);
+                        int containerY = constructorContainer.getLocation().getY();
+                        System.out.println("контейнер" + containerY);
+                        return headerY >= containerY && headerY <= containerY + 41;
                     });
         }, "Заголовок " + tab.getName() + " не поднялся наверх");
 
