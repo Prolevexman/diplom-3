@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import prolevexman.annotations.Browser;
 import prolevexman.api.UserClient;
@@ -51,8 +52,13 @@ public class SiteNavigationTest {
         UserClient userClient = new UserClient();
         userClient.createUser(user);
         User loginUser = new User(user.getEmail(), user.getPassword(), null);
+        Response response = userClient.loginUser(loginUser);
+        String token = response.jsonPath().getString("accessToken");
         loginPage.openLoginPage();
-            loginPage.login(loginUser);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.localStorage.setItem('accessToken', arguments[0]);", token);
+        driver.navigate().refresh();
+
 
 
     }
